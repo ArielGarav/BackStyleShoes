@@ -45,7 +45,7 @@ export const verifyUser = async (
     }
 
     if (usuario.verified) {
-      res.status(400).json({ msg: "El usuario está correctamente verificado" });
+      res.status(200).json({ msg: "El usuario está correctamente verificado" });
       return;
     }
 

@@ -7,7 +7,7 @@ const validarJWT = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const token = req.headers["x.token"] as string;
+  const token = req.headers["x-token"] as string;
 
   if (!token) {
     res.status(401).json({ msg: "no hay token en la peticion" });

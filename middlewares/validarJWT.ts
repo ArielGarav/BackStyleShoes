@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
 import Usuario, { IUser } from "../models/usuario";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 const validarJWT = async (
   req: Request,
@@ -14,9 +14,12 @@ const validarJWT = async (
   }
   try {
     const clueSecret = process.env.CLAVESECRET as string;
-    console.log(clueSecret);
     const payload = jwt.verify(token, clueSecret) as JwtPayload;
-
+    // Verificar si el token ha caducado
+    if (payload.exp && Date.now() >= payload.exp * 1000) {
+      res.status(401).json({ msg: "Token caducado" });
+      return;
+    }
     const { id } = payload;
 
     // Buscar al usuario en la base de datos utilizando el ID
@@ -34,9 +37,14 @@ const validarJWT = async (
     // Pasar al siguiente middleware o ruta
     next();
   } catch (error) {
-    // Si ocurre un error durante el proceso de verificación del token, devolver una respuesta de error 401
-    console.error(error); // Imprime el error en la consola para depuración
-    res.status(401).json({ msg: "Error al verificar el token JWT Aca Falla" });
+    if (error instanceof Error && error.name === "TokenExpiredError") {
+      // El token ha caducado
+      res.status(401).json({ msg: "Token caducado" });
+    } else {
+      // Otro tipo de error durante la verificación del token
+      console.error(error);
+      res.status(401).json({ msg: "Error al verificar el token JWT" });
+    }
   }
 };
 export default validarJWT;

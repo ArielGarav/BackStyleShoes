@@ -6,7 +6,7 @@ const generarJWT = (id: string = ""): Promise<string> => {
     jwt.sign(
       payload,
       process.env.CLAVESECRET as string,
-      { expiresIn: "8h" },
+      { expiresIn: "24h" },
       (err: Error | null, token: string | undefined) => {
         if (err) {
           console.log(err);

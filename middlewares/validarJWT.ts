@@ -39,8 +39,8 @@ const validarJWT = async (
     next();
   } catch (error) {
     // Si ocurre un error durante el proceso de verificación del token, devolver una respuesta de error 401
-    console.log(error);
-    res.status(401).json({ msg: "Aca falla" });
+    console.error(error); // Imprime el error en la consola para depuración
+    res.status(401).json({ msg: "Error al verificar el token JWT" });
   }
 };
 export default validarJWT;

@@ -36,10 +36,6 @@ const validarJWT = async (
 
     // Pasar al siguiente middleware o ruta
     next();
-  } catch (error) {
-    // Si ocurre un error durante el proceso de verificación del token, devolver una respuesta de error 401
-    console.log(error);
-    res.status(401).json({ msg: "weon" });
-  }
+  } catch (error) {}
 };
 export default validarJWT;

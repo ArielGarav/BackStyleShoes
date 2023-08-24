@@ -12,6 +12,7 @@ const generarJWT = (id: string = ""): Promise<string> => {
           console.log(err);
           rej("No se pudo generar el token");
         } else {
+          console.log("Token generado:", token); // Agregamos un registro de depuración
           res(token as string);
         }
       }

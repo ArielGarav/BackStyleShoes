@@ -10,12 +10,14 @@ const validarJWT = async (
   const token = req.headers["x-token"] as string;
 
   if (!token) {
-    res.status(401).json({ msg: "no hay token en la peticion" });
+    res.status(401).json({ msg: "no hay token en la petición" });
     return;
   }
   try {
     // Obtener la clave secreta desde una variable de entorno llamada CLAVESECRETA
     const claveSecreta = process.env.CLAVESECRETA as string;
+
+    console.log("Token recibido:", token); // Agregamos un registro de depuración
 
     // Verificar el token utilizando la clave secreta y obtener el payload
     const payload = jwt.verify(token, claveSecreta) as JwtPayload;

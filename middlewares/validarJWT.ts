@@ -8,20 +8,21 @@ const validarJWT = async (
   next: NextFunction
 ): Promise<void> => {
   const token = req.headers["x-token"] as string;
-
+  console.log(token);
   if (!token) {
     res.status(401).json({ msg: "no hay token en la petición" });
     return;
   }
   try {
     const clueSecret = process.env.CLAVESECRET as string;
+    console.log(clueSecret);
     const payload = jwt.verify(token, clueSecret) as JwtPayload;
 
     const { id } = payload;
 
     // Buscar al usuario en la base de datos utilizando el ID
     const usuarioConfirmado: IUser | null = await Usuario.findById(id);
-
+    console.log(usuarioConfirmado);
     // Si el usuario no se encuentra en la base de datos, devolver una respuesta de error 401 (No autorizado)
     if (!usuarioConfirmado) {
       res.status(401).json({ msg: "Token no válido" });

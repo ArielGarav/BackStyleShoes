@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import Usuario, { IUser } from "../models/usuario";
+
 const validarJWT = async (
   req: Request,
   res: Response,
@@ -27,7 +28,7 @@ const validarJWT = async (
 
     // Si el usuario no se encuentra en la base de datos, devolver una respuesta de error 401 (No autorizado)
     if (!usuarioConfirmado) {
-      res.status(401).json({ msg: "xdd" });
+      res.status(401).json({ msg: "Token no válido" });
       return;
     }
 
@@ -39,6 +40,7 @@ const validarJWT = async (
   } catch (error) {
     // Si ocurre un error durante el proceso de verificación del token, devolver una respuesta de error 401
     console.log(error);
+    res.status(401).json({ msg: "Aca falla" });
   }
 };
 export default validarJWT;

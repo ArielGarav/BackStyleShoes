@@ -14,15 +14,9 @@ const validarJWT = async (
     return;
   }
   try {
-    // Obtener la clave secreta desde una variable de entorno llamada CLAVESECRETA
-    const claveSecreta = process.env.CLAVESECRETA as string;
+    const clueSecret = process.env.CLAVESECRET as string;
+    const payload = jwt.verify(token, clueSecret) as JwtPayload;
 
-    console.log("Token recibido:", token); // Agregamos un registro de depuración
-
-    // Verificar el token utilizando la clave secreta y obtener el payload
-    const payload = jwt.verify(token, claveSecreta) as JwtPayload;
-
-    // Extraer el ID del usuario del payload
     const { id } = payload;
 
     // Buscar al usuario en la base de datos utilizando el ID

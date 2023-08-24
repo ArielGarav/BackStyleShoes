@@ -28,7 +28,7 @@ const validarJWT = async (
 
     // Si el usuario no se encuentra en la base de datos, devolver una respuesta de error 401 (No autorizado)
     if (!usuarioConfirmado) {
-      res.status(401).json({ msg: "Token no válido" });
+      res.status(401).json({ msg: "xdd" });
       return;
     }
 
@@ -40,7 +40,7 @@ const validarJWT = async (
   } catch (error) {
     // Si ocurre un error durante el proceso de verificación del token, devolver una respuesta de error 401
     console.log(error);
-    res.status(401).json({ msg: "Token no válido" });
+    res.status(401).json({ msg: "weon" });
   }
 };
 export default validarJWT;
